@@ -25,6 +25,29 @@ npm run dev        # http://localhost:3000
 
 Open http://localhost:3000 — the Dashboard is the entry point. The Proxy tab is a good first stop: it generates demo traffic on load so you can explore the request/response viewers.
 
+## Screenshots
+
+<div align="center">
+  <table>
+    <tr>
+      <td><img src="screenshots/store.png" alt="Dashboard" width="400" /></td>
+      <td><img src="screenshots/scanner.png" alt="Scanner" width="400" /></td>
+    </tr>
+    <tr>
+      <td align="center"><em>Dashboard</em></td>
+      <td align="center"><em>Scanner</em></td>
+    </tr>
+    <tr>
+      <td><img src="screenshots/intruder.png" alt="Intruder" width="400" /></td>
+      <td><img src="screenshots/extender.png" alt="Extender" width="400" /></td>
+    </tr>
+    <tr>
+      <td align="center"><em>Intruder</em></td>
+      <td align="center"><em>Extender</em></td>
+    </tr>
+  </table>
+</div>
+
 ## Scripts
 
 | Command                       | Description                                   |
@@ -41,6 +64,48 @@ Production run:
 npm run build
 npm run start       # http://localhost:3000
 ```
+
+## Run as a persistent service (Linux + PM2)
+
+To keep BurpStar running in the background on Linux — surviving terminal exits, crashes and reboots — use [PM2](https://pm2.keymetrics.io/):
+
+```bash
+# 1. Install PM2 globally (once)
+npm install -g pm2
+
+# 2. Build the production bundle
+npm run build
+
+# 3. Start it as a managed service named "burpstar"
+pm2 start npm --name burpstar -- start
+
+# 4. Save the process list and enable the startup script (systemd)
+pm2 save
+pm2 startup          # run the printed command to register the boot service
+```
+
+Optional extras:
+
+```bash
+# Allow private/loopback relay targets (e.g. testing local apps)
+BURPSTAR_ALLOW_PRIVATE=1 pm2 start npm --name burpstar -- start
+
+# Bind to a specific host / port via env vars
+PORT=8080 pm2 start npm --name burpstar -- start
+```
+
+Useful PM2 commands:
+
+| Command                | Description                                  |
+| ---------------------- | -------------------------------------------- |
+| `pm2 status`           | Show running services, uptime and memory     |
+| `pm2 logs burpstar`    | Tail the service logs                        |
+| `pm2 restart burpstar` | Restart the service                          |
+| `pm2 stop burpstar`    | Stop without deleting it from the process list |
+| `pm2 delete burpstar`  | Stop and remove the service                  |
+| `pm2 monit`            | Terminal dashboard for all services          |
+
+> The runtime store is written to `data/store.json`, so your traffic, issues and scans persist across restarts. Back it up alongside the project directory if needed.
 
 ## Modules
 
