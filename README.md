@@ -27,26 +27,10 @@ Open http://localhost:3000 — the Dashboard is the entry point. The Proxy tab i
 
 ## Screenshots
 
-<div align="center">
-  <table>
-    <tr>
-      <td><img src="screenshots/store.png" alt="Dashboard" width="400" /></td>
-      <td><img src="screenshots/scanner.png" alt="Scanner" width="400" /></td>
-    </tr>
-    <tr>
-      <td align="center"><em>Dashboard</em></td>
-      <td align="center"><em>Scanner</em></td>
-    </tr>
-    <tr>
-      <td><img src="screenshots/intruder.png" alt="Intruder" width="400" /></td>
-      <td><img src="screenshots/extender.png" alt="Extender" width="400" /></td>
-    </tr>
-    <tr>
-      <td align="center"><em>Intruder</em></td>
-      <td align="center"><em>Extender</em></td>
-    </tr>
-  </table>
-</div>
+| Dashboard | Scanner |
+| --- | --- |
+| ![Dashboard](screenshots/store.png) | ![Scanner](screenshots/scanner.png) |
+| ![Intruder](screenshots/intruder.png) | ![Extender](screenshots/extender.png) |
 
 ## Scripts
 
