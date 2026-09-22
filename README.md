@@ -9,6 +9,8 @@ It works in two modes:
 
 All captured traffic, issues and scan results are persisted to a single JSON store (`data/store.json`).
 
+**Free & open source.** BurpStar is completely **free to use** — for personal, educational and commercial projects alike. It is released under the [MIT License](./LICENSE). Please use it **at your own risk**: it is a security testing tool, so only ever point it at systems you own or are authorized to test. See [Disclaimer](#disclaimer).
+
 ## Requirements
 
 - **Node.js 20.9+** (Next.js 16 requirement)
@@ -177,3 +179,21 @@ Fonts: `--font-sans` (system/Segoe UI/Inter) and `--font-mono` (JetBrains Mono/C
 - Raw request relay trusts the URL you enter — always double-check the `Host` / target before sending.
 - Loopback and private-address targets are refused unless `BURPSTAR_ALLOW_PRIVATE=1` is set.
 - The demo responder and store are intentionally local-only; no data leaves the machine.
+
+## Disclaimer
+
+BurpStar is a **web security testing tool** provided **free of charge** and distributed **"AS IS", without warranty of any kind** (see the LICENSE). By using it, you acknowledge and accept that:
+
+- **You use it entirely at your own risk.** The authors and contributors are not liable for any damage, data loss, downtime, or legal consequences arising from its use — direct or indirect.
+- It is your responsibility to only use it against systems you **own** or have **explicit written authorization** to test. Unauthorized scanning or attacking of systems is illegal in many jurisdictions and is solely your responsibility.
+- Requests are relayed **exactly as you configure them** — a mistyped URL, `Host` header, or scan target is sent to whatever destination you specify. Always double-check your targets before sending.
+- This is a **development / lab tool**, not a substitute for professional penetration testing, and results should be independently verified.
+- The software carries **no warranty, no guarantee of accuracy or fitness for a particular purpose**, and no support obligation whatsoever.
+
+If you do not agree with these terms, do not use this software.
+
+## License
+
+This project is released under the **MIT License** — see [LICENSE](./LICENSE).
+
+Copyright (c) 2026 lazarus-muya. You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, subject to the conditions of the MIT License.
