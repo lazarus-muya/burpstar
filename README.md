@@ -27,10 +27,11 @@ Open http://localhost:3000 — the Dashboard is the entry point. The Proxy tab i
 
 ## Screenshots
 
-| Dashboard | Scanner |
-| --- | --- |
-| ![Dashboard](screenshots/store.png) | ![Scanner](screenshots/scanner.png) |
-| ![Intruder](screenshots/intruder.png) | ![Extender](screenshots/extender.png) |
+| BApp | Scanner 
+| --- | --- 
+| ![BApp](screenshots/store.png) | ![Scanner](screenshots/scanner.png)
+| Intruder | Extender 
+| ![Intruder](screenshots/intruder.png) | ![Extender](screenshots/extender.png)
 
 ## Scripts
 
