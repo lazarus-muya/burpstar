@@ -1,15 +1,15 @@
 # BurpStar Suite Pro
 
-A Burp Suite Pro–style web security testing workbench built with **Next.js (App Router)**, **TypeScript** and **Tailwind CSS v4**. It provides an interactive dark "security workbench" UI for editing and relaying raw HTTP requests, scanning targets, fuzzing, decoding, diffing, and more.
+A free, self-hosted web security testing workbench that gives you a complete HTTP toolkit in one dark, single-page UI: a **Proxy** that captures and inspects every request/response, a **Repeater** for hand-crafting raw requests, an **Intruder** for fuzzing parameters, a **Scanner** that flags vulnerabilities, plus **Decoder** and **Comparer** tools all running locally on your own machine.
 
 It works in two modes:
 
-- **Live relay** — requests you send from Repeater / Intruder / Scanner are actually executed against the target host by the Next.js server (`lib/server/engine.ts`).
-- **Offline demo** — hosts that resolve to the reserved `.test` / `.invalid` TLDs are served by a built-in demo responder (`lib/server/demo.ts`) so you can experiment without network access.
+- **Live relay**: requests you send from Repeater / Intruder / Scanner are actually executed against the target host by the Next.js server (`lib/server/engine.ts`).
+- **Offline demo**: hosts that resolve to the reserved `.test` / `.invalid` TLDs are served by a built-in demo responder (`lib/server/demo.ts`) so you can experiment without network access.
 
 All captured traffic, issues and scan results are persisted to a single JSON store (`data/store.json`).
 
-**Free & open source.** BurpStar is completely **free to use** — for personal, educational and commercial projects alike. It is released under the [MIT License](./LICENSE). Please use it **at your own risk**: it is a security testing tool, so only ever point it at systems you own or are authorized to test. See [Disclaimer](#disclaimer).
+**Free & open source.** BurpStar is completely **free to use** for personal, educational and commercial projects alike. It is released under the [MIT License](./LICENSE). Please use it **at your own risk**: it is a security testing tool, so only ever point it at systems you own or are authorized to test. See [Disclaimer](#disclaimer).
 
 ## Requirements
 
@@ -23,7 +23,7 @@ npm install
 npm run dev        # http://localhost:3000
 ```
 
-Open http://localhost:3000 — the Dashboard is the entry point. The Proxy tab is a good first stop: it generates demo traffic on load so you can explore the request/response viewers.
+Open http://localhost:3000: the Dashboard is the entry point. The Proxy tab is a good first stop: it generates demo traffic on load so you can explore the request/response viewers.
 
 ## Screenshots
 
@@ -50,9 +50,9 @@ npm run build
 npm run start       # http://localhost:3000
 ```
 
-## Run as a persistent service (Linux + PM2)
+## Run as a persistent service (Linux + PM2) - Recommended for Linux
 
-To keep BurpStar running in the background on Linux — surviving terminal exits, crashes and reboots — use [PM2](https://pm2.keymetrics.io/):
+To keep BurpStar running in the background on Linux surviving terminal exits, crashes and reboots. Use [PM2](https://pm2.keymetrics.io/):
 
 ```bash
 # 1. Install PM2 globally (once)
@@ -124,9 +124,9 @@ data/store.json Runtime data store (all traffic, issues, scans, settings) — gi
 ### Data persistence
 
 - Everything is a plain JSON snapshot written to `data/store.json` after each mutation (`lib/server/store.ts`).
-- The store is **seeded empty** — no demo traffic is preloaded. The Proxy module generates a small amount of demo traffic in the browser on first load so you can explore the UI.
+- The store is **seeded empty** no demo traffic is preloaded. The Proxy module generates a small amount of demo traffic in the browser on first load so you can explore the UI.
 - To reset the app from scratch: stop the dev server, delete `data/store.json`, restart. (An empty store re-initializes automatically.)
-- `data/` is excluded via `/data` in `.gitignore` — the store never enters the repo.
+- `data/` is excluded via `/data` in `.gitignore` the store never enters the repo.
 
 ### Live relay & safety
 
@@ -141,7 +141,7 @@ $env:BURPSTAR_ALLOW_PRIVATE="1"; npm run dev
 
 ### Offline demo responder
 
-Any host ending in the reserved TLDs `.test` or `.invalid` is served locally by `lib/server/demo.ts` — no real network needed. It responds with plausible bodies (login pages, JSON APIs, 301/302 redirects, 401s) and can be made to "fail" by appending malformed paths. Example:
+Any host ending in the reserved TLDs `.test` or `.invalid` is served locally by `lib/server/demo.ts` no real network needed. It responds with plausible bodies (login pages, JSON APIs, 301/302 redirects, 401s) and can be made to "fail" by appending malformed paths. Example:
 
 ```
 Host: shop.test         # fictional storefront with /cart, /orders, /api
@@ -174,7 +174,7 @@ All endpoints live under `/api` and read/write the shared store. Auth-less and J
 | `/api/extensions/store/[id]`          | POST    | Install from catalog                       |
 | `/api/extensions/console`             | GET, POST    | Extension console output              |
 
-Example — send a request with Repeater:
+Example: send a request with Repeater:
 
 ```http
 POST /login HTTP/1.1
@@ -186,7 +186,7 @@ user=admin&pass=test
 
 Paste the above into the Repeater request editor, set the host override to `shop.test`, and press **Send**. The demo responder returns a response, an entry is appended to `HTTP history`, and a redirect (if any) is shown untraversed.
 
-Example — Intruder fuzzing:
+Example: Intruder fuzzing:
 
 ```
 GET /search?q=§admin§ HTTP/1.1
@@ -195,10 +195,10 @@ Host: shop.test
 
 Positions between `§` markers are replaced with each payload from the wordlist (e.g. SQLi / XSS payloads), and every request/response pair is recorded.
 
-Example — Scanner:
+Example: Scanner:
 
 1. Go to **Scanner**, enter a target like `https://example.com` (or `http://shop.test` for offline demo).
-2. Pick checks — SQLi, XSS, SSRF, IDOR, auth, JWT, headers, info disclosure.
+2. Pick checks: SQLi, XSS, SSRF, IDOR, auth, JWT, headers, info disclosure.
 3. Run the scan; results land in the scan's **Report** and flagged issues appear under `/api/issues`.
 
 ## Design tokens
@@ -219,24 +219,24 @@ Fonts: `--font-sans` (system/Segoe UI/Inter) and `--font-mono` (JetBrains Mono/C
 
 ## Layout
 
-- `app/` — one page per module plus the root layout (top bar, main shell, status bar); the layout is `force-dynamic`.
-- `components/modules/` — a self-contained component per tool; the Proxy module is split into history, navigator, inspector, toolbar and the message viewer.
-- `lib/server/` — all routing/relay/scoring logic runs server-side in the API routes; the browser only renders and calls `/api`.
+- `app/`: one page per module plus the root layout (top bar, main shell, status bar); the layout is `force-dynamic`.
+- `components/modules/`: a self-contained component per tool; the Proxy module is split into history, navigator, inspector, toolbar and the message viewer.
+- `lib/server/`: all routing/relay/scoring logic runs server-side in the API routes; the browser only renders and calls `/api`.
 
 ## Security notes
 
 - This is a **development / lab tool**, not an authorized testing product. Only point it at targets you own or are authorized to test.
-- Raw request relay trusts the URL you enter — always double-check the `Host` / target before sending.
-- Loopback and private-address targets are refused unless `BURPSTAR_ALLOW_PRIVATE=1` is set.
+- Raw request relay trusts the URL you enter always double check the `Host` / target before sending.
+- Loopback and private address targets are refused unless `BURPSTAR_ALLOW_PRIVATE=1` is set.
 - The demo responder and store are intentionally local-only; no data leaves the machine.
 
 ## Disclaimer
 
 BurpStar is a **web security testing tool** provided **free of charge** and distributed **"AS IS", without warranty of any kind** (see the LICENSE). By using it, you acknowledge and accept that:
 
-- **You use it entirely at your own risk.** The authors and contributors are not liable for any damage, data loss, downtime, or legal consequences arising from its use — direct or indirect.
+- **You use it entirely at your own risk.** The authors and contributors are not liable for any damage, data loss, downtime, or legal consequences arising from its use direct or indirect.
 - It is your responsibility to only use it against systems you **own** or have **explicit written authorization** to test. Unauthorized scanning or attacking of systems is illegal in many jurisdictions and is solely your responsibility.
-- Requests are relayed **exactly as you configure them** — a mistyped URL, `Host` header, or scan target is sent to whatever destination you specify. Always double-check your targets before sending.
+- Requests are relayed **exactly as you configure them** a mistyped URL, `Host` header, or scan target is sent to whatever destination you specify. Always double-check your targets before sending.
 - This is a **development / lab tool**, not a substitute for professional penetration testing, and results should be independently verified.
 - The software carries **no warranty, no guarantee of accuracy or fitness for a particular purpose**, and no support obligation whatsoever.
 
@@ -244,6 +244,6 @@ If you do not agree with these terms, do not use this software.
 
 ## License
 
-This project is released under the **MIT License** — see [LICENSE](./LICENSE).
+This project is released under the **MIT License** see [LICENSE](./LICENSE).
 
 Copyright (c) 2026 lazarus-muya. You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, subject to the conditions of the MIT License.
